@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block content %}
     {% for product in products %}
         <div class="card" style="width: 18rem; display: inline-block">
-            <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+            {% thumbnail product.image "300x300" as img %}
+            <img src="{{ img.url }}" class="card-img-top" alt="...">
+            {% endthumbnail %}
             <div class="card-body">
                 <a href="{{ product.get_absolute_url }}" class="card-title">{{ product.name }}</a>
             </div>
