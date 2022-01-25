@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block content %}
-    <h3>Home</h3>
+    {% for category in categories %}
+        <a href="{{ category.get_absolute_url }}" class="btn btn-primary">{{ category.name }}</a>
+    {% endfor %}<br><br>
+    {% for product in products %}
+        <div class="card" style="width: 18rem; display: inline-block">
+            {% thumbnail product.image "300x300" as img %}
+            <img src="{{ img.url }}" class="card-img-top" alt="...">
+            {% endthumbnail %}
+            <div class="card-body">
+                <a href="{{ product.get_absolute_url }}" class="card-title">{{ product.name }}</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
