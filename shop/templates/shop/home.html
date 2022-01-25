@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Home</h3>
+    {% for product in products %}
+        <div class="card" style="width: 18rem; display: inline-block">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <a href="{{ product.get_absolute_url }}" class="card-title">{{ product.name }}</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
