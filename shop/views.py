@@ -4,7 +4,7 @@ from .models import Product, Category
 
 def home(request, slug=None):
     products = Product.objects.filter(available=True)
-    categories = Category.objects.all()
+    categories = Category.objects.filter(is_sub=False)
     if slug:
         category = get_object_or_404(Category, slug=slug)
         products = products.filter(category=category)
