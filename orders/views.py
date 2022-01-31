@@ -38,5 +38,6 @@ def coupon_apply(request, order_id):
             return redirect('orders:detail', order_id)
         order = Order.objects.get(id=order_id)
         order.discount = coupon.discount
+        order.active = True
         order.save()
     return redirect('orders:detail', order_id)

@@ -10,6 +10,7 @@ class Order(models.Model):
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
     discount = models.IntegerField(blank=True, null=True, default=None)
+    active = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-created',)
@@ -19,8 +20,11 @@ class Order(models.Model):
 
     def get_total_price(self):
         total = sum(item.get_cost() for item in self.items.all())
-        if self.discount:
+        if self.discount and self.active:
             discount_price = (self.discount / 100) * total
+            self.active = False
+            self.save()
+            print(self.active)
             return int(total - discount_price)
         return total
 
