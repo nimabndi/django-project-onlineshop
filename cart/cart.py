@@ -19,7 +19,7 @@ class Cart:
         for product in products:
             cart[str(product.id)]['product'] = product
         for item in cart.values():
-            item['total_price'] = Decimal(item['price']) * item['quantity']
+            item['total_price'] = int(item['price']) * item['quantity']
             yield item
 
     def remove(self, product):
