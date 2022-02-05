@@ -3,4 +3,11 @@
 {% block content %}
     <h3>Checkout</h3>
     <p>Total: {{ order.get_total_price }}</p>
+    <form action="{% url 'orders:coupon_apply' order.id %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Apply">
+    </form>
+    <br>
+    <a href="" class="btn btn-primary">Pay</a>
 {% endblock %}

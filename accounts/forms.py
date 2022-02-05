@@ -45,3 +45,11 @@ class UserRegistrationForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     full_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+    def clean_email(self):
+        email = User.objects.filter(email=self.cleaned_data['email']).exists()
+        if email is not None:
+            raise forms.ValidationError('This email is there')
+        else:
+            return email
+
